@@ -1,3 +1,4 @@
+import { lastValueFrom } from 'rxjs';
 import { Tree } from '@angular-devkit/schematics';
 import {
   SchematicTestRunner,
@@ -10,7 +11,7 @@ async function createTestProject(
   appOptions = {},
   tree?: Tree
 ): Promise<UnitTestTree> {
-  return runner
+  return lastValueFrom(runner
     .runExternalSchematicAsync(
       '@schematics/angular',
       'workspace',
@@ -19,8 +20,7 @@ async function createTestProject(
         version: '1.2',
       },
       tree
-    )
-    .toPromise();
+    ));
 
   // return runner
   //   .runExternalSchematicAsync(
