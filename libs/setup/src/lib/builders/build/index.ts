@@ -1,3 +1,4 @@
+import { lastValueFrom } from 'rxjs';
 import {
   BuilderContext,
   createBuilder,
@@ -43,12 +44,12 @@ const execute = (
         sandboxContext.discoveryTsPath
       );
 
-      return executebBuilder(
+      return lastValueFrom(executebBuilder(
         toNgBuildOptions(options, {
           tsConfig: sandboxContext.discoveryConfigPath,
         }),
         context
-      ).toPromise();
+      ));
     })
     .catch((e) => {
       context.logger.error(e);
